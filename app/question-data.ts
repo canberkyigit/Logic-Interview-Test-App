@@ -21,6 +21,7 @@ export type Question = {
   prompt: string;
   options: string[];
   answer: number;
+  explanation?: string;
   visual?: VisualSpec;
   visualOptions?: VisualSpec;
 };

@@ -15,6 +15,7 @@ type SavedSession = {
   current: number;
   answers: Answers;
   endsAt: number;
+  seed: number;
 };
 
 function formatTime(seconds: number) {
@@ -22,6 +23,55 @@ function formatTime(seconds: number) {
   const minutes = Math.floor(safe / 60).toString().padStart(2, "0");
   const secs = Math.floor(safe % 60).toString().padStart(2, "0");
   return `${minutes}:${secs}`;
+}
+
+function seededRandom(seed: number) {
+  let value = seed >>> 0;
+  return () => {
+    value += 0x6d2b79f5;
+    let result = value;
+    result = Math.imul(result ^ (result >>> 15), result | 1);
+    result ^= result + Math.imul(result ^ (result >>> 7), result | 61);
+    return ((result ^ (result >>> 14)) >>> 0) / 4294967296;
+  };
+}
+
+function shuffledIndexes(length: number, random: () => number) {
+  const indexes = Array.from({ length }, (_, index) => index);
+  for (let index = indexes.length - 1; index > 0; index -= 1) {
+    const swapWith = Math.floor(random() * (index + 1));
+    [indexes[index], indexes[swapWith]] = [indexes[swapWith], indexes[index]];
+  }
+  return indexes;
+}
+
+function buildExamQuestions(set: SetNumber, seed: number): Question[] {
+  const source = questionSets[set];
+  if (!seed) return source;
+
+  const random = seededRandom(seed);
+  const withShuffledOptions = source.map((question) => {
+    const optionOrder = shuffledIndexes(question.options.length, random);
+    const visualItems = question.visualOptions?.items;
+    return {
+      ...question,
+      options: optionOrder.map((index) => question.options[index]),
+      answer: optionOrder.indexOf(question.answer),
+      visualOptions: question.visualOptions ? {
+        ...question.visualOptions,
+        items: visualItems ? optionOrder.map((index) => visualItems[index]) : visualItems,
+      } : undefined,
+    };
+  });
+
+  return shuffledIndexes(withShuffledOptions.length, random).map((index) => withShuffledOptions[index]);
+}
+
+function newShuffleSeed() {
+  if (typeof crypto !== "undefined" && "getRandomValues" in crypto) {
+    return crypto.getRandomValues(new Uint32Array(1))[0] || 1;
+  }
+  return (Date.now() >>> 0) || 1;
 }
 
 function polygonKind(sides: number) {
@@ -230,7 +280,7 @@ function HomeScreen({ selected, onSelect, onStart }: { selected: SetNumber; onSe
           </div>
         </div>
         <div className="set-panel">
-          <div className="panel-heading"><span>01</span><div><h2>Bir set seç</h2><p>Zorluk her sette biraz daha yükselir.</p></div></div>
+          <div className="panel-heading"><span>01</span><div><h2>Bir set seç</h2><p>Zorluk yükselir; soru ve seçenek sırası her başlangıçta değişir.</p></div></div>
           <div className="set-grid">
             {([1, 2, 3, 4, 5] as SetNumber[]).map((set) => {
               const active = selected === set;
@@ -255,8 +305,7 @@ function HomeScreen({ selected, onSelect, onStart }: { selected: SetNumber; onSe
   );
 }
 
-function ExamScreen({ set, current, answers, remaining, onAnswer, onGo, onFinish, onExit }: { set: SetNumber; current: number; answers: Answers; remaining: number; onAnswer: (index: number) => void; onGo: (index: number) => void; onFinish: () => void; onExit: () => void }) {
-  const questions = questionSets[set];
+function ExamScreen({ set, questions, current, answers, remaining, onAnswer, onGo, onFinish, onExit }: { set: SetNumber; questions: Question[]; current: number; answers: Answers; remaining: number; onAnswer: (index: number) => void; onGo: (index: number) => void; onFinish: () => void; onExit: () => void }) {
   const question = questions[current];
   const selected = answers[question.id];
   const answered = Object.keys(answers).length;
@@ -281,15 +330,15 @@ function ExamScreen({ set, current, answers, remaining, onAnswer, onGo, onFinish
         <aside className="question-sidebar">
           <div className="sidebar-top"><span>SORU HARİTASI</span><strong>{current + 1}<small>/30</small></strong></div>
           <div className="question-map">
-            {questions.map((item, index) => <button key={item.id} className={`${index === current ? "is-current" : ""} ${answers[item.id] !== undefined ? "is-answered" : ""}`} onClick={() => onGo(index)} aria-label={`Soru ${item.id}`}>{item.id}</button>)}
+            {questions.map((item, index) => <button key={item.id} className={`${index === current ? "is-current" : ""} ${answers[item.id] !== undefined ? "is-answered" : ""}`} onClick={() => onGo(index)} aria-label={`Soru ${index + 1}`}>{index + 1}</button>)}
           </div>
           <div className="map-legend"><span><i className="legend-current" />Aktif</span><span><i className="legend-answered" />Cevaplandı</span></div>
           <div className="shortcut-note"><strong>Kısayol</strong><span>A-E cevapla</span><span>← → sorular arasında geç</span></div>
         </aside>
         <section className="question-stage">
           <div className="question-card">
-            <div className="question-meta"><span className="question-index">{String(question.id).padStart(2, "0")}</span><span className="category-chip">{question.category}</span></div>
-            <h1 ref={headingRef} tabIndex={-1} className="sr-only">Soru {question.id}</h1>
+            <div className="question-meta"><span className="question-index">{String(current + 1).padStart(2, "0")}</span><span className="category-chip">{question.category}</span></div>
+            <h1 ref={headingRef} tabIndex={-1} className="sr-only">Soru {current + 1}</h1>
             <QuestionBody question={question} />
             <div className={`option-list ${question.visualOptions ? "is-visual-options" : ""}`}>
               {question.options.map((_, index) => (
@@ -312,8 +361,39 @@ function ExamScreen({ set, current, answers, remaining, onAnswer, onGo, onFinish
   );
 }
 
-function ResultsScreen({ set, answers, remaining, onRetake, onHome }: { set: SetNumber; answers: Answers; remaining: number; onRetake: () => void; onHome: () => void }) {
-  const questions = questionSets[set];
+function questionExplanation(question: Question) {
+  if (question.explanation) return question.explanation;
+  const correct = question.visualOptions
+    ? `${LETTERS[question.answer]} seçeneği`
+    : `${LETTERS[question.answer]} — ${question.options[question.answer]}`;
+
+  if (question.kind === "sequence") {
+    const rule = question.intro?.replace(/\.$/, "") ?? "Ardışık farklar, çarpanlar veya dönüşümlü işlemler birlikte izlendiğinde örüntü ortaya çıkar";
+    return `${rule}. Kural sürdürüldüğünde doğru cevap ${correct} olur.`;
+  }
+  if (question.kind === "number-matrix") {
+    return `Her satıra aynı matematiksel ilişki uygulandığında eksik değer ${correct} olur.`;
+  }
+  if (question.kind === "logic" || question.kind === "inference") {
+    return `${correct} ifadesi verilen öncüllerin zorunlu sonucudur. Diğer seçenekler metinde bulunmayan ek bir varsayım gerektirir.`;
+  }
+  if (question.kind === "action") {
+    return `Soruna doğrudan, ölçülü ve kanıta dayalı müdahale eden eylemler değerlendirildiğinde doğru seçim ${correct} olur.`;
+  }
+  const rule = question.intro?.replace(/\.$/, "") ?? "Yön, doluluk, konum ve parça sayısındaki ortak değişim izlendiğinde görsel kural belirlenir";
+  return `${rule}. Bu nedenle doğru cevap ${correct} olur.`;
+}
+
+function ReviewAnswer({ question, index, label, tone }: { question: Question; index?: number; label: string; tone: "selected" | "correct" }) {
+  return (
+    <div className={`review-answer is-${tone}`}>
+      <span>{label}</span>
+      {index === undefined ? <strong>Boş bırakıldı</strong> : <div><i>{LETTERS[index]}</i><span><OptionContent question={question} index={index} /></span></div>}
+    </div>
+  );
+}
+
+function ResultsScreen({ set, questions, answers, remaining, onRetake, onHome }: { set: SetNumber; questions: Question[]; answers: Answers; remaining: number; onRetake: () => void; onHome: () => void }) {
   const correct = questions.filter((q) => answers[q.id] === q.answer).length;
   const answered = Object.keys(answers).length;
   const wrong = answered - correct;
@@ -330,9 +410,29 @@ function ResultsScreen({ set, answers, remaining, onRetake, onHome }: { set: Set
           <div className="result-copy"><span className="eyebrow">SONUÇ ÖZETİ</span><h1>{score >= 80 ? "Tempo sende." : score >= 60 ? "İyi gidiyorsun." : "Ritmi biraz daha sıkılaştır."}</h1><p>Set {set} tamamlandı. Renkli soru haritasında doğru, yanlış ve boşlarını tek bakışta görebilirsin.</p></div>
         </div>
         <div className="result-stats"><div><strong>{correct}</strong><span>Doğru</span></div><div><strong>{wrong}</strong><span>Yanlış</span></div><div><strong>{empty}</strong><span>Boş</span></div><div><strong>{formatTime(used)}</strong><span>Kullanılan süre</span></div></div>
-        <div className="result-map" aria-label="Sonuç soru haritası">{questions.map((q) => { const state = answers[q.id] === undefined ? "empty" : answers[q.id] === q.answer ? "correct" : "wrong"; return <span className={`result-dot is-${state}`} key={q.id} title={`Soru ${q.id}: ${state}`}>{q.id}</span>; })}</div>
+        <div className="result-map" aria-label="Sonuç soru haritası">{questions.map((q, index) => { const state = answers[q.id] === undefined ? "empty" : answers[q.id] === q.answer ? "correct" : "wrong"; return <span className={`result-dot is-${state}`} key={q.id} title={`Soru ${index + 1}: ${state}`}>{index + 1}</span>; })}</div>
         <div className="result-legend"><span><i className="result-correct" />Doğru</span><span><i className="result-wrong" />Yanlış</span><span><i className="result-empty" />Boş</span></div>
-        <div className="result-actions"><button className="secondary-button" onClick={onHome}>Set seçimine dön</button><button className="primary-button" onClick={onRetake}>Seti tekrar çöz <span>↻</span></button></div>
+        <div className="result-actions"><button className="secondary-button" onClick={onHome}>Set seçimine dön</button><a className="review-jump-button" href="#answer-review">Cevapları incele ↓</a><button className="primary-button" onClick={onRetake}>Seti tekrar çöz <span>↻</span></button></div>
+        <section className="answer-review" id="answer-review">
+          <div className="review-heading"><span className="eyebrow">SORU İNCELEMESİ</span><h2>Nerede, neden?</h2><p>Her soruyu açarak verdiğin cevabı, doğru seçeneği ve kısa çözüm mantığını görebilirsin.</p></div>
+          <div className="review-list">
+            {questions.map((question, index) => {
+              const selected = answers[question.id];
+              const state = selected === undefined ? "empty" : selected === question.answer ? "correct" : "wrong";
+              const stateLabel = state === "correct" ? "Doğru" : state === "wrong" ? "Yanlış" : "Boş";
+              return (
+                <details className={`review-item is-${state}`} key={question.id}>
+                  <summary><span className="review-number">{String(index + 1).padStart(2, "0")}</span><span className="review-summary-copy"><strong>{question.category}</strong><small>{stateLabel}</small></span><span className="review-status" aria-label={stateLabel}>{state === "correct" ? "✓" : state === "wrong" ? "×" : "–"}</span></summary>
+                  <div className="review-body">
+                    <QuestionBody question={question} />
+                    <div className="answer-comparison"><ReviewAnswer question={question} index={selected} label="Senin cevabın" tone="selected" /><ReviewAnswer question={question} index={question.answer} label="Doğru cevap" tone="correct" /></div>
+                    <div className="solution-note"><strong>Çözüm mantığı</strong><p>{questionExplanation(question)}</p></div>
+                  </div>
+                </details>
+              );
+            })}
+          </div>
+        </section>
       </div>
     </main>
   );
@@ -370,6 +470,7 @@ export default function Home() {
   const [remaining, setRemaining] = useState(EXAM_SECONDS);
   const [showFinish, setShowFinish] = useState(false);
   const [showExit, setShowExit] = useState(false);
+  const [shuffleSeed, setShuffleSeed] = useState(0);
 
   useEffect(() => {
     try {
@@ -383,6 +484,7 @@ export default function Home() {
           setAnswers(saved.answers ?? {});
           setEndsAt(saved.endsAt);
           setRemaining(left);
+          setShuffleSeed(saved.seed ?? 0);
           setScreen("exam");
         } else {
           localStorage.removeItem(STORAGE_KEY);
@@ -396,9 +498,9 @@ export default function Home() {
 
   useEffect(() => {
     if (!hydrated || screen !== "exam" || !endsAt) return;
-    const session: SavedSession = { set: selectedSet, current, answers, endsAt };
+    const session: SavedSession = { set: selectedSet, current, answers, endsAt, seed: shuffleSeed };
     localStorage.setItem(STORAGE_KEY, JSON.stringify(session));
-  }, [hydrated, screen, selectedSet, current, answers, endsAt]);
+  }, [hydrated, screen, selectedSet, current, answers, endsAt, shuffleSeed]);
 
   useEffect(() => {
     if (screen !== "exam" || !endsAt) return;
@@ -416,7 +518,7 @@ export default function Home() {
     return () => window.clearInterval(timer);
   }, [screen, endsAt]);
 
-  const questions = questionSets[selectedSet];
+  const questions = useMemo(() => buildExamQuestions(selectedSet, shuffleSeed), [selectedSet, shuffleSeed]);
   const unanswered = useMemo(() => 30 - Object.keys(answers).length, [answers]);
 
   useEffect(() => {
@@ -443,21 +545,21 @@ export default function Home() {
 
   const startExam = () => {
     const end = Date.now() + EXAM_SECONDS * 1000;
-    setAnswers({}); setCurrent(0); setRemaining(EXAM_SECONDS); setEndsAt(end); setScreen("exam");
+    setAnswers({}); setCurrent(0); setRemaining(EXAM_SECONDS); setEndsAt(end); setShuffleSeed(newShuffleSeed()); setScreen("exam");
   };
   const finishExam = () => {
     localStorage.removeItem(STORAGE_KEY); setShowFinish(false); setScreen("result");
   };
   const goHome = () => {
-    localStorage.removeItem(STORAGE_KEY); setShowExit(false); setScreen("home"); setAnswers({}); setCurrent(0); setEndsAt(null); setRemaining(EXAM_SECONDS);
+    localStorage.removeItem(STORAGE_KEY); setShowExit(false); setScreen("home"); setAnswers({}); setCurrent(0); setEndsAt(null); setRemaining(EXAM_SECONDS); setShuffleSeed(0);
   };
 
   if (!hydrated) return <main className="loading-screen"><span className="brand-mark">GY</span><p>Sınav hazırlanıyor...</p></main>;
   return (
     <>
       {screen === "home" && <HomeScreen selected={selectedSet} onSelect={setSelectedSet} onStart={startExam} />}
-      {screen === "exam" && <ExamScreen set={selectedSet} current={current} answers={answers} remaining={remaining} onAnswer={(index) => setAnswers((previous) => ({ ...previous, [questions[current].id]: index }))} onGo={(index) => setCurrent(Math.max(0, Math.min(29, index)))} onFinish={() => setShowFinish(true)} onExit={() => setShowExit(true)} />}
-      {screen === "result" && <ResultsScreen set={selectedSet} answers={answers} remaining={remaining} onRetake={startExam} onHome={goHome} />}
+      {screen === "exam" && <ExamScreen set={selectedSet} questions={questions} current={current} answers={answers} remaining={remaining} onAnswer={(index) => setAnswers((previous) => ({ ...previous, [questions[current].id]: index }))} onGo={(index) => setCurrent(Math.max(0, Math.min(29, index)))} onFinish={() => setShowFinish(true)} onExit={() => setShowExit(true)} />}
+      {screen === "result" && <ResultsScreen set={selectedSet} questions={questions} answers={answers} remaining={remaining} onRetake={startExam} onHome={goHome} />}
       {showFinish && <FinishDialog unanswered={unanswered} onCancel={() => setShowFinish(false)} onConfirm={finishExam} />}
       {showExit && <ExitDialog onCancel={() => setShowExit(false)} onConfirm={goHome} />}
     </>

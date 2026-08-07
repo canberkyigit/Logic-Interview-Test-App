@@ -1,16 +1,16 @@
 import type { Question } from "./question-data";
 
 export const set1: Question[] = [
-  { id: 1, kind: "sequence", category: "Sayı dizisi", sequence: "3 - 7 - 15 - 31 - 63 - ?", prompt: "Sıradaki sayı hangisidir?", options: ["95", "111", "127", "129", "131"], answer: 2 },
-  { id: 2, kind: "sequence", category: "Sayı dizisi", sequence: "2 - 5 - 11 - 23 - 47 - ?", prompt: "Sıradaki sayı hangisidir?", options: ["91", "93", "94", "95", "96"], answer: 3 },
-  { id: 3, kind: "sequence", category: "Sayı dizisi", sequence: "90 - 45 - 47 - 23,5 - 25,5 - ?", prompt: "Sıradaki sayı hangisidir?", options: ["11,25", "12,25", "12,75", "13,25", "14,25"], answer: 2 },
-  { id: 4, kind: "sequence", category: "Sayı dizisi", sequence: "4 - 6 - 12 - 14 - 28 - 30 - ?", prompt: "Sıradaki sayı hangisidir?", options: ["32", "56", "58", "60", "62"], answer: 3 },
-  { id: 5, kind: "sequence", category: "Sayı dizisi", sequence: "1 - 2 - 6 - 15 - 31 - 56 - ?", prompt: "Sıradaki sayı hangisidir?", options: ["82", "87", "92", "94", "98"], answer: 2 },
-  { id: 6, kind: "sequence", category: "Diziyi bozan sayı", sequence: "7 - 14 - 28 - 56 - 110 - 224", prompt: "Hangisi düzeni bozmaktadır?", options: ["14", "28", "56", "110", "224"], answer: 3 },
-  { id: 7, kind: "sequence", category: "Diziyi bozan sayı", sequence: "1 - 4 - 9 - 16 - 24 - 36", prompt: "Hangisi düzeni bozmaktadır?", options: ["4", "9", "16", "24", "36"], answer: 3 },
-  { id: 8, kind: "sequence", category: "Diziyi bozan sayı", sequence: "5 - 11 - 23 - 47 - 96 - 191", prompt: "Hangisi düzeni bozmaktadır?", options: ["11", "23", "47", "96", "191"], answer: 3 },
-  { id: 9, kind: "sequence", category: "Diziyi bozan sayı", sequence: "13 - 17 - 19 - 23 - 27 - 29", prompt: "Hangisi düzeni bozmaktadır?", options: ["17", "19", "23", "27", "29"], answer: 3 },
-  { id: 10, kind: "sequence", category: "Diziyi bozan sayı", sequence: "2 - 6 - 12 - 20 - 30 - 43", prompt: "Hangisi düzeni bozmaktadır?", options: ["6", "12", "20", "30", "43"], answer: 4 },
+  { id: 1, kind: "sequence", category: "Sayı dizisi", sequence: "3 - 7 - 15 - 31 - 63 - ?", prompt: "Sıradaki sayı hangisidir?", options: ["95", "111", "127", "129", "131"], answer: 2, explanation: "Her terim önceki sayının iki katının bir fazlasıdır: 63 × 2 + 1 = 127." },
+  { id: 2, kind: "sequence", category: "Sayı dizisi", sequence: "2 - 5 - 11 - 23 - 47 - ?", prompt: "Sıradaki sayı hangisidir?", options: ["91", "93", "94", "95", "96"], answer: 3, explanation: "Her terim önceki sayının iki katının bir fazlasıdır: 47 × 2 + 1 = 95." },
+  { id: 3, kind: "sequence", category: "Sayı dizisi", sequence: "90 - 45 - 47 - 23,5 - 25,5 - ?", prompt: "Sıradaki sayı hangisidir?", options: ["11,25", "12,25", "12,75", "13,25", "14,25"], answer: 2, explanation: "İşlemler sırayla ikiye bölme ve 2 ekleme biçimindedir: 25,5 ÷ 2 = 12,75." },
+  { id: 4, kind: "sequence", category: "Sayı dizisi", sequence: "4 - 6 - 12 - 14 - 28 - 30 - ?", prompt: "Sıradaki sayı hangisidir?", options: ["32", "56", "58", "60", "62"], answer: 3, explanation: "İşlemler +2 ve ×2 olarak dönüşümlü ilerler: 30 × 2 = 60." },
+  { id: 5, kind: "sequence", category: "Sayı dizisi", sequence: "1 - 2 - 6 - 15 - 31 - 56 - ?", prompt: "Sıradaki sayı hangisidir?", options: ["82", "87", "92", "94", "98"], answer: 2, explanation: "Artışlar 1, 4, 9, 16, 25 ve 36 şeklinde kare sayılardır: 56 + 36 = 92." },
+  { id: 6, kind: "sequence", category: "Diziyi bozan sayı", sequence: "7 - 14 - 28 - 56 - 110 - 224", prompt: "Hangisi düzeni bozmaktadır?", options: ["14", "28", "56", "110", "224"], answer: 3, explanation: "Her sayı iki katına çıkmalıdır. 56'dan sonra 112 gelmesi gerekir; bu nedenle 110 düzeni bozar." },
+  { id: 7, kind: "sequence", category: "Diziyi bozan sayı", sequence: "1 - 4 - 9 - 16 - 24 - 36", prompt: "Hangisi düzeni bozmaktadır?", options: ["4", "9", "16", "24", "36"], answer: 3, explanation: "Dizi ardışık sayıların karelerinden oluşur. 16'dan sonra 25 gelmelidir; 24 yanlıştır." },
+  { id: 8, kind: "sequence", category: "Diziyi bozan sayı", sequence: "5 - 11 - 23 - 47 - 96 - 191", prompt: "Hangisi düzeni bozmaktadır?", options: ["11", "23", "47", "96", "191"], answer: 3, explanation: "Kural ×2 + 1'dir. 47'den sonra 95 gelmesi gerekir; 96 düzeni bozar." },
+  { id: 9, kind: "sequence", category: "Diziyi bozan sayı", sequence: "13 - 17 - 19 - 23 - 27 - 29", prompt: "Hangisi düzeni bozmaktadır?", options: ["17", "19", "23", "27", "29"], answer: 3, explanation: "Dizideki sayılar asal olmalıdır. 27 asal olmadığı için diğerlerinden farklıdır." },
+  { id: 10, kind: "sequence", category: "Diziyi bozan sayı", sequence: "2 - 6 - 12 - 20 - 30 - 43", prompt: "Hangisi düzeni bozmaktadır?", options: ["6", "12", "20", "30", "43"], answer: 4, explanation: "Terimler n × (n + 1) biçimindedir: 1×2, 2×3, …, 6×7 = 42. Bu nedenle 43 yanlıştır." },
   {
     id: 11, kind: "logic", category: "Sözel mantık",
     statements: ["Bazı mühendisler yöneticidir.", "Bütün yöneticiler üniversite mezunudur."],
@@ -96,7 +96,7 @@ export const set1: Question[] = [
     visual: { type: "ArrowOnlySequence", items: [["up"], ["right"], ["down"], ["left"], null] }, visualOptions: { type: "ArrowOnlyOptions", items: [["up"], ["right"], ["down"], ["left"]] },
   },
   {
-    id: 27, kind: "visual-odd", category: "Uyumsuz şekil", prompt: "Hangisi diğerlerinden farklıdır?", options: ["A", "B", "C", "D", "E"], answer: 3,
+    id: 27, kind: "visual-odd", category: "Uyumsuz şekil", prompt: "Hangisi diğerlerinden farklıdır?", options: ["A", "B", "C", "D", "E"], answer: 3, explanation: "Dört şeklin köşeleri vardır; daire köşesiz olduğu için diğerlerinden farklıdır.",
     visualOptions: { type: "IconOptions", items: [["triangle", false], ["square", false], ["diamond", false], ["circle", false], ["triangle-down", false]] },
   },
   {
@@ -104,7 +104,7 @@ export const set1: Question[] = [
     visual: { type: "DotPositionSequence", items: [[true, false, false], [false, true, false], [false, false, true], null] }, visualOptions: { type: "DotPositionOptions", items: [[true, false, false], [false, true, false], [false, false, true], [true, true, false], [false, true, true]] },
   },
   {
-    id: 29, kind: "visual-odd", category: "Dönüşüm mantığı", prompt: "Hangisi diğerlerinden farklı bir dönüşüm mantığına sahiptir?", options: ["A", "B", "C", "D", "E"], answer: 4,
+    id: 29, kind: "visual-odd", category: "Dönüşüm mantığı", prompt: "Hangisi diğerlerinden farklı bir dönüşüm mantığına sahiptir?", options: ["A", "B", "C", "D", "E"], answer: 4, explanation: "İlk dört seçenekte ok 90 derece saat yönünde döner. Son seçenekte dönüş 180 derece olduğu için kuralı bozar.",
     visualOptions: { type: "ArrowPairOptions", items: [["up", "right"], ["right", "down"], ["down", "left"], ["left", "up"], ["up", "down"]] },
   },
   {
