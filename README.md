@@ -13,6 +13,8 @@ Türkçe genel yetenek ve mantık mülakatlarına hazırlanmak için geliştiril
 - Soru haritası, önceki/sonraki gezinme ve klavye kısayolları
 - Cevapların cihazda otomatik korunması
 - Doğru, yanlış, boş ve süre bazlı sonuç özeti
+- Sınav sonunda doğru cevap ve kısa çözüm mantığıyla soru inceleme
+- Her başlangıçta otomatik karıştırılan soru ve seçenek sırası
 - Sınavdan çıkış öncesi güvenli onay ekranı
 - Masaüstü ve mobil uyumlu tasarım
 

@@ -211,7 +211,7 @@ button:focus-visible, [tabindex]:focus-visible { outline: 3px solid rgba(19, 138
 .relation-top { top: 0; } .relation-bottom { bottom: 0; } .relation-middle { top: calc(50% - 4px); }
 
 .result-shell { min-height: 100vh; display: grid; place-items: center; padding: 34px 24px; background: radial-gradient(circle at 88% 12%, rgba(19, 138, 138, .13), transparent 30%), linear-gradient(135deg, #eef3f5, #f8fafb); }
-.result-card { width: min(840px, 100%); padding: clamp(28px, 5vw, 52px); background: #fff; border: 1px solid var(--line); border-radius: 28px; box-shadow: var(--shadow); }
+.result-card { width: min(960px, 100%); padding: clamp(28px, 5vw, 52px); background: #fff; border: 1px solid var(--line); border-radius: 28px; box-shadow: var(--shadow); }
 .result-brand { display: flex; align-items: center; gap: 12px; color: var(--muted); font-size: 13px; font-weight: 750; }
 .result-main { display: grid; grid-template-columns: 190px 1fr; gap: 42px; align-items: center; margin-top: 36px; }
 .score-ring { --score: 0deg; width: 176px; height: 176px; display: grid; place-items: center; background: conic-gradient(var(--teal) var(--score), #e8eef2 0); border-radius: 50%; }
@@ -236,6 +236,40 @@ button:focus-visible, [tabindex]:focus-visible { outline: 3px solid rgba(19, 138
 .result-legend { display: flex; justify-content: center; gap: 18px; margin-top: 13px; color: var(--muted); font-size: 10px; }
 .result-correct { background: var(--correct); } .result-wrong { background: var(--wrong); } .result-empty { background: #dfe6eb; }
 .result-actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--line); }
+.review-jump-button { display: inline-flex; min-height: 50px; padding: 0 22px; align-items: center; justify-content: center; color: var(--teal-dark); background: var(--teal-pale); border: 1px solid #b9dede; border-radius: 14px; font-size: 13px; font-weight: 780; text-decoration: none; transition: transform .18s ease, background .18s ease; }
+.review-jump-button:hover { transform: translateY(-1px); background: #dff3f2; }
+.answer-review { margin-top: 54px; padding-top: 46px; border-top: 1px solid var(--line); scroll-margin-top: 24px; }
+.review-heading { max-width: 620px; }
+.review-heading h2 { margin: 8px 0 10px; color: var(--navy); font-size: 34px; letter-spacing: -.045em; }
+.review-heading p { margin: 0; color: var(--muted); line-height: 1.6; }
+.review-list { display: grid; gap: 10px; margin-top: 28px; }
+.review-item { overflow: hidden; background: #fbfcfd; border: 1px solid var(--line); border-radius: 16px; }
+.review-item[open] { background: #fff; box-shadow: 0 12px 30px rgba(19, 34, 56, .07); }
+.review-item summary { display: grid; grid-template-columns: 46px minmax(0, 1fr) 34px; gap: 13px; align-items: center; min-height: 74px; padding: 12px 18px; cursor: pointer; list-style: none; }
+.review-item summary::-webkit-details-marker { display: none; }
+.review-number { display: grid; width: 40px; height: 40px; place-items: center; color: var(--navy); background: #eef2f5; border-radius: 11px; font-size: 12px; font-weight: 850; }
+.review-summary-copy strong, .review-summary-copy small { display: block; }
+.review-summary-copy strong { color: var(--navy); font-size: 13px; }
+.review-summary-copy small { margin-top: 4px; color: var(--muted); font-size: 10px; font-weight: 750; text-transform: uppercase; letter-spacing: .08em; }
+.review-status { display: grid; width: 30px; height: 30px; place-items: center; color: #fff; border-radius: 50%; font-size: 15px; font-weight: 850; }
+.review-item.is-correct .review-status { background: var(--correct); }
+.review-item.is-wrong .review-status { background: var(--wrong); }
+.review-item.is-empty .review-status { color: var(--muted); background: #e5ebef; }
+.review-body { padding: 8px 24px 26px; border-top: 1px solid var(--line); }
+.review-body .question-intro { margin-top: 22px; }
+.review-body .question-prompt { margin-top: 24px; font-size: 21px; }
+.review-body .number-sequence { font-size: clamp(19px, 3vw, 28px); }
+.answer-comparison { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 24px; }
+.review-answer { min-width: 0; padding: 15px; background: #f6f8fa; border: 1px solid var(--line); border-radius: 13px; }
+.review-answer > span { display: block; margin-bottom: 9px; color: var(--muted); font-size: 9px; font-weight: 850; text-transform: uppercase; letter-spacing: .11em; }
+.review-answer > strong { color: var(--muted); font-size: 13px; }
+.review-answer > div { display: flex; align-items: center; gap: 10px; color: var(--navy); font-size: 13px; font-weight: 680; }
+.review-answer i { display: grid; flex: 0 0 auto; width: 27px; height: 27px; place-items: center; color: #fff; background: var(--navy); border-radius: 8px; font-size: 11px; font-style: normal; }
+.review-answer.is-correct { background: #edf8f3; border-color: #b9dfcf; }
+.review-answer.is-correct i { background: var(--correct); }
+.solution-note { margin-top: 13px; padding: 17px 18px; color: #36546b; background: #edf6f7; border-left: 4px solid var(--teal); border-radius: 0 12px 12px 0; }
+.solution-note strong { color: var(--teal-dark); font-size: 10px; text-transform: uppercase; letter-spacing: .1em; }
+.solution-note p { margin: 6px 0 0; font-size: 13px; line-height: 1.6; }
 
 .modal-backdrop { position: fixed; inset: 0; z-index: 100; display: grid; place-items: center; padding: 20px; background: rgba(12, 24, 40, .62); backdrop-filter: blur(7px); }
 .finish-dialog { width: min(470px, 100%); padding: 34px; text-align: center; background: #fff; border-radius: 24px; box-shadow: 0 30px 90px rgba(0, 0, 0, .28); }
@@ -311,7 +345,12 @@ button:focus-visible, [tabindex]:focus-visible { outline: 3px solid rgba(19, 138
   .result-stats div:nth-child(-n + 2) { border-bottom: 1px solid var(--line); }
   .result-map { grid-template-columns: repeat(10, 1fr); }
   .result-actions, .finish-dialog > div { flex-direction: column-reverse; }
-  .result-actions button, .finish-dialog button { width: 100%; }
+  .result-actions button, .result-actions a, .finish-dialog button { width: 100%; }
+  .answer-review { margin-top: 38px; padding-top: 34px; }
+  .review-item summary { grid-template-columns: 40px minmax(0, 1fr) 30px; gap: 9px; padding-inline: 12px; }
+  .review-number { width: 36px; height: 36px; }
+  .review-body { padding: 4px 14px 20px; }
+  .answer-comparison { grid-template-columns: 1fr; }
 }
 
 @media (prefers-reduced-motion: reduce) {
