@@ -1,4 +1,5 @@
 import generatedSets from "./generated-sets.json";
+import { set1 } from "./set1-data";
 
 export type VisualSpec = {
   type: string;
@@ -487,9 +488,10 @@ const set2: Question[] = [
   },
 ];
 
-export type SetNumber = 2 | 3 | 4 | 5;
+export type SetNumber = 1 | 2 | 3 | 4 | 5;
 
 export const questionSets: Record<SetNumber, Question[]> = {
+  1: set1,
   2: set2,
   3: generatedSets["3"] as Question[],
   4: generatedSets["4"] as Question[],
@@ -497,6 +499,7 @@ export const questionSets: Record<SetNumber, Question[]> = {
 };
 
 export const setMeta: Record<SetNumber, { level: string; note: string; accent: string }> = {
+  1: { level: "Başlangıç / Orta", note: "Temel kalıpları hızlandır", accent: "#5d758c" },
   2: { level: "Orta / Zor", note: "Temel ritmi kur", accent: "#138a8a" },
   3: { level: "Orta / Zor+", note: "Çift kuralları yakala", accent: "#2474a8" },
   4: { level: "Zor", note: "Dikkat tuzaklarına gir", accent: "#8a5a20" },

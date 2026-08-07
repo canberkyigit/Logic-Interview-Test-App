@@ -129,6 +129,18 @@ function VisualToken({ type, token }: { type: string; token: unknown }) {
     const [direction, fills] = value as [string, boolean[]];
     return <span className="arrow-double-token"><Arrow direction={direction} /><span className="dot-row"><Dot filled={fills[0]} /><Dot filled={fills[1]} /></span></span>;
   }
+  if (["ArrowOnlySequence", "ArrowOnlyOptions"].includes(type)) {
+    return <Arrow direction={String(value[0])} />;
+  }
+  if (["DotPositionSequence", "DotPositionOptions"].includes(type)) {
+    return <span className="dot-position-token">{value.map((filled, index) => <Dot key={index} filled={Boolean(filled)} />)}</span>;
+  }
+  if (type === "ArrowPairOptions") {
+    return <span className="arrow-pair-token"><Arrow direction={String(value[0])} /><span>→</span><Arrow direction={String(value[1])} /></span>;
+  }
+  if (["CheckerRowSequence", "CheckerRowOptions"].includes(type)) {
+    return <span className="checker-row-token">{value.map((filled, index) => <i key={index} className={filled ? "is-filled" : ""} />)}</span>;
+  }
   return <span className="visual-question-mark">?</span>;
 }
 
@@ -142,7 +154,7 @@ function staticMatrix(type: string): unknown[][] {
 
 function VisualPrompt({ spec }: { spec: VisualSpec }) {
   const type = spec.type;
-  const sequenceTypes = ["CornerSequence", "GrowingPolygonSequence", "PolyDotSequence", "ArrowDotSequence"];
+  const sequenceTypes = ["CornerSequence", "GrowingPolygonSequence", "PolyDotSequence", "ArrowDotSequence", "ArrowOnlySequence", "DotPositionSequence", "CheckerRowSequence"];
   if (sequenceTypes.includes(type)) {
     const items = (spec.items ?? []) as unknown[];
     return (
@@ -212,15 +224,15 @@ function HomeScreen({ selected, onSelect, onStart }: { selected: SetNumber; onSe
           <h1>30 soruda<br /><em>ritmini bul.</em></h1>
           <p>Gerçek sınav temposunda sayısal, sözel ve görsel akıl yürütme pratiği. Setini seç; süre Başla dediğin anda çalışsın.</p>
           <div className="hero-stats">
-            <div><strong>4</strong><span>özgün set</span></div>
-            <div><strong>120</strong><span>toplam soru</span></div>
+            <div><strong>5</strong><span>özgün set</span></div>
+            <div><strong>150</strong><span>toplam soru</span></div>
             <div><strong>60 sn</strong><span>soru başına</span></div>
           </div>
         </div>
         <div className="set-panel">
           <div className="panel-heading"><span>01</span><div><h2>Bir set seç</h2><p>Zorluk her sette biraz daha yükselir.</p></div></div>
           <div className="set-grid">
-            {([2, 3, 4, 5] as SetNumber[]).map((set) => {
+            {([1, 2, 3, 4, 5] as SetNumber[]).map((set) => {
               const active = selected === set;
               return (
                 <button key={set} className={`set-card ${active ? "is-selected" : ""}`} style={{ "--set-accent": setMeta[set].accent } as React.CSSProperties} onClick={() => onSelect(set)} aria-pressed={active}>
@@ -243,7 +255,7 @@ function HomeScreen({ selected, onSelect, onStart }: { selected: SetNumber; onSe
   );
 }
 
-function ExamScreen({ set, current, answers, remaining, onAnswer, onGo, onFinish }: { set: SetNumber; current: number; answers: Answers; remaining: number; onAnswer: (index: number) => void; onGo: (index: number) => void; onFinish: () => void }) {
+function ExamScreen({ set, current, answers, remaining, onAnswer, onGo, onFinish, onExit }: { set: SetNumber; current: number; answers: Answers; remaining: number; onAnswer: (index: number) => void; onGo: (index: number) => void; onFinish: () => void; onExit: () => void }) {
   const questions = questionSets[set];
   const question = questions[current];
   const selected = answers[question.id];
@@ -260,7 +272,10 @@ function ExamScreen({ set, current, answers, remaining, onAnswer, onGo, onFinish
       <header className="exam-header">
         <div className="brand-lockup"><span className="brand-mark">GY</span><span>Set {set}</span></div>
         <div className="header-progress"><span>{answered}/30 cevaplandı</span><div><i style={{ width: `${(answered / 30) * 100}%` }} /></div></div>
-        <div className={`timer ${remaining <= 300 ? "is-danger" : ""}`}><span>SÜRE</span><strong>{formatTime(remaining)}</strong></div>
+        <div className="exam-header-actions">
+          <button className="exit-button" onClick={onExit} aria-label="Sınavdan çık"><span aria-hidden="true">×</span> Çıkış</button>
+          <div className={`timer ${remaining <= 300 ? "is-danger" : ""}`}><span>SÜRE</span><strong>{formatTime(remaining)}</strong></div>
+        </div>
       </header>
       <div className="exam-layout">
         <aside className="question-sidebar">
@@ -334,6 +349,17 @@ function FinishDialog({ unanswered, onCancel, onConfirm }: { unanswered: number;
   );
 }
 
+function ExitDialog({ onCancel, onConfirm }: { onCancel: () => void; onConfirm: () => void }) {
+  return (
+    <div className="modal-backdrop" role="presentation" onMouseDown={onCancel}>
+      <div className="finish-dialog" role="dialog" aria-modal="true" aria-labelledby="exit-title" onMouseDown={(event) => event.stopPropagation()}>
+        <span className="dialog-icon exit-icon">↩</span><h2 id="exit-title">Sınavdan çıkalım mı?</h2><p>Set seçim ekranına döneceksin. Bu sınavdaki cevapların ve kalan süren silinecek.</p>
+        <div><button className="secondary-button" onClick={onCancel}>Sınava dön</button><button className="exit-confirm-button" onClick={onConfirm}>Çık ve setlere dön</button></div>
+      </div>
+    </div>
+  );
+}
+
 export default function Home() {
   const [hydrated, setHydrated] = useState(false);
   const [screen, setScreen] = useState<Screen>("home");
@@ -343,6 +369,7 @@ export default function Home() {
   const [endsAt, setEndsAt] = useState<number | null>(null);
   const [remaining, setRemaining] = useState(EXAM_SECONDS);
   const [showFinish, setShowFinish] = useState(false);
+  const [showExit, setShowExit] = useState(false);
 
   useEffect(() => {
     try {
@@ -393,7 +420,7 @@ export default function Home() {
   const unanswered = useMemo(() => 30 - Object.keys(answers).length, [answers]);
 
   useEffect(() => {
-    if (screen !== "exam" || showFinish) return;
+    if (screen !== "exam" || showFinish || showExit) return;
     const onKey = (event: KeyboardEvent) => {
       const key = event.key.toLowerCase();
       const letterIndex = ["a", "b", "c", "d", "e"].indexOf(key);
@@ -412,7 +439,7 @@ export default function Home() {
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [screen, showFinish, questions, current]);
+  }, [screen, showFinish, showExit, questions, current]);
 
   const startExam = () => {
     const end = Date.now() + EXAM_SECONDS * 1000;
@@ -422,16 +449,17 @@ export default function Home() {
     localStorage.removeItem(STORAGE_KEY); setShowFinish(false); setScreen("result");
   };
   const goHome = () => {
-    localStorage.removeItem(STORAGE_KEY); setScreen("home"); setAnswers({}); setCurrent(0); setEndsAt(null); setRemaining(EXAM_SECONDS);
+    localStorage.removeItem(STORAGE_KEY); setShowExit(false); setScreen("home"); setAnswers({}); setCurrent(0); setEndsAt(null); setRemaining(EXAM_SECONDS);
   };
 
   if (!hydrated) return <main className="loading-screen"><span className="brand-mark">GY</span><p>Sınav hazırlanıyor...</p></main>;
   return (
     <>
       {screen === "home" && <HomeScreen selected={selectedSet} onSelect={setSelectedSet} onStart={startExam} />}
-      {screen === "exam" && <ExamScreen set={selectedSet} current={current} answers={answers} remaining={remaining} onAnswer={(index) => setAnswers((previous) => ({ ...previous, [questions[current].id]: index }))} onGo={(index) => setCurrent(Math.max(0, Math.min(29, index)))} onFinish={() => setShowFinish(true)} />}
+      {screen === "exam" && <ExamScreen set={selectedSet} current={current} answers={answers} remaining={remaining} onAnswer={(index) => setAnswers((previous) => ({ ...previous, [questions[current].id]: index }))} onGo={(index) => setCurrent(Math.max(0, Math.min(29, index)))} onFinish={() => setShowFinish(true)} onExit={() => setShowExit(true)} />}
       {screen === "result" && <ResultsScreen set={selectedSet} answers={answers} remaining={remaining} onRetake={startExam} onHome={goHome} />}
       {showFinish && <FinishDialog unanswered={unanswered} onCancel={() => setShowFinish(false)} onConfirm={finishExam} />}
+      {showExit && <ExitDialog onCancel={() => setShowExit(false)} onConfirm={goHome} />}
     </>
   );
 }

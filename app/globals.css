@@ -79,6 +79,10 @@ button:focus-visible, [tabindex]:focus-visible { outline: 3px solid rgba(19, 138
 .header-progress > span { color: #c9d3df; font-size: 12px; font-weight: 680; white-space: nowrap; }
 .header-progress > div { height: 6px; overflow: hidden; background: rgba(255, 255, 255, .14); border-radius: 99px; }
 .header-progress i { display: block; height: 100%; background: #63c5c3; border-radius: 99px; transition: width .25s ease; }
+.exam-header-actions { justify-self: end; display: flex; align-items: center; gap: 10px; }
+.exit-button { min-height: 42px; padding: 0 14px; color: #d8e1ea; background: transparent; border: 1px solid rgba(255, 255, 255, .18); border-radius: 12px; cursor: pointer; font-size: 12px; font-weight: 760; transition: color .18s ease, background .18s ease, border-color .18s ease; }
+.exit-button span { margin-right: 4px; font-size: 17px; line-height: 0; }
+.exit-button:hover { color: #fff; background: rgba(255, 255, 255, .09); border-color: rgba(255, 255, 255, .3); }
 .timer { justify-self: end; display: flex; align-items: baseline; gap: 11px; padding: 11px 14px; border: 1px solid rgba(255, 255, 255, .14); border-radius: 12px; font-variant-numeric: tabular-nums; }
 .timer span { color: #aab8c8; font-size: 9px; font-weight: 850; letter-spacing: .16em; }
 .timer strong { min-width: 64px; font-size: 19px; letter-spacing: .04em; }
@@ -166,6 +170,10 @@ button:focus-visible, [tabindex]:focus-visible { outline: 3px solid rgba(19, 138
 .visual-dot.is-open { background: #fff; }
 .dot-row, .shape-count-row { display: inline-flex; align-items: center; justify-content: center; gap: 5px; }
 .arrow-dot-token, .arrow-count-token, .arrow-double-token { display: inline-flex; align-items: center; justify-content: center; gap: 9px; }
+.dot-position-token, .arrow-pair-token, .checker-row-token { display: inline-flex; align-items: center; justify-content: center; gap: 6px; }
+.arrow-pair-token > span { color: #91a0af; font-size: 15px; }
+.checker-row-token i { display: block; width: 17px; height: 17px; background: #fff; border: 2px solid var(--navy-2); }
+.checker-row-token i.is-filled { background: var(--navy-2); }
 .arrow-count-token .visual-dot { width: 8px; height: 8px; border-width: 1.6px; }
 .shape-icon { --clip: circle(50%); position: relative; display: inline-block; flex: 0 0 auto; width: 28px; height: 28px; background: var(--navy-2); clip-path: var(--clip); }
 .shape-icon.is-small { width: 21px; height: 21px; }
@@ -174,6 +182,7 @@ button:focus-visible, [tabindex]:focus-visible { outline: 3px solid rgba(19, 138
 .shape-square { --clip: polygon(0 0, 100% 0, 100% 100%, 0 100%); }
 .shape-diamond { --clip: polygon(50% 0, 100% 50%, 50% 100%, 0 50%); }
 .shape-triangle { --clip: polygon(50% 0, 100% 100%, 0 100%); }
+.shape-triangle-down { --clip: polygon(0 0, 100% 0, 50% 100%); }
 .shape-pentagon { --clip: polygon(50% 0, 98% 35%, 79% 100%, 21% 100%, 2% 35%); }
 .shape-hexagon { --clip: polygon(25% 4%, 75% 4%, 100% 50%, 75% 96%, 25% 96%, 0 50%); }
 .shape-heptagon { --clip: polygon(50% 0, 89% 19%, 100% 61%, 72% 100%, 28% 100%, 0 61%, 11% 19%); }
@@ -234,6 +243,9 @@ button:focus-visible, [tabindex]:focus-visible { outline: 3px solid rgba(19, 138
 .finish-dialog h2 { margin: 0; color: var(--navy); font-size: 26px; letter-spacing: -.035em; }
 .finish-dialog p { margin: 12px 0 26px; color: var(--muted); line-height: 1.55; }
 .finish-dialog > div { display: flex; justify-content: center; gap: 10px; }
+.dialog-icon.exit-icon { color: #9f3e48; background: #fae9eb; }
+.exit-confirm-button { min-height: 50px; padding: 0 22px; color: #fff; background: #9f3e48; border: 0; border-radius: 14px; cursor: pointer; font-weight: 780; transition: transform .18s ease, box-shadow .18s ease, background .18s ease; }
+.exit-confirm-button:hover { transform: translateY(-1px); background: #88323b; box-shadow: 0 12px 24px rgba(159, 62, 72, .22); }
 .loading-screen { min-height: 100vh; display: grid; place-content: center; gap: 12px; text-align: center; color: var(--muted); }
 .loading-screen .brand-mark { margin: auto; }
 
@@ -272,7 +284,9 @@ button:focus-visible, [tabindex]:focus-visible { outline: 3px solid rgba(19, 138
   .exam-header .brand-lockup > span:last-child { display: none; }
   .exam-header .brand-mark { width: 38px; height: 38px; }
   .header-progress { display: none; }
-  .timer { grid-column: 3; padding: 8px 10px; }
+  .exam-header-actions { grid-column: 3; gap: 6px; }
+  .exit-button { min-height: 38px; padding-inline: 10px; }
+  .timer { padding: 8px 10px; }
   .exam-layout { padding: 15px 12px 34px; gap: 14px; }
   .question-sidebar { padding: 10px; border-radius: 14px; }
   .question-map { grid-template-columns: repeat(10, 32px); gap: 5px; }
