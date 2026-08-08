@@ -119,9 +119,38 @@ function PolyDotToken({ token }: { token: [number, string, boolean] }) {
   );
 }
 
+type AdvancedTileSpec = {
+  shapes?: Array<[string, boolean, number, number, number, number?]>;
+  lines?: Array<[number, number?, number?, number?, number?]>;
+  dots?: Array<[number, number, boolean?, number?]>;
+  connector?: boolean;
+};
+
+function AdvancedTile({ spec }: { spec: AdvancedTileSpec }) {
+  const hasFilledShape = spec.shapes?.some(([, filled]) => filled) ?? false;
+
+  return (
+    <span className={`advanced-tile${hasFilledShape ? " has-filled-shape" : ""}`} aria-hidden="true">
+      {spec.shapes?.map(([kind, filled, x, y, size, rotation = 0], index) => (
+        <span className="advanced-shape" key={`shape-${index}`} style={{ left: `${x}%`, top: `${y}%`, width: `${size}%`, height: `${size}%`, transform: `translate(-50%, -50%) rotate(${rotation}deg)` }}><ShapeIcon kind={kind} filled={filled} /></span>
+      ))}
+      {spec.lines?.map(([angle, x = 50, y = 50, length = 62, thickness = 2], index) => (
+        <i className="advanced-line" key={`line-${index}`} style={{ left: `${x}%`, top: `${y}%`, width: `${length}%`, height: `${thickness}px`, transform: `translate(-50%, -50%) rotate(${angle}deg)` }} />
+      ))}
+      {spec.dots?.map(([x, y, filled = true, size = 8], index) => (
+        <i className={`advanced-dot ${filled ? "is-filled" : "is-open"}`} key={`dot-${index}`} style={{ left: `${x}%`, top: `${y}%`, width: `${size}px`, height: `${size}px` }} />
+      ))}
+      {spec.connector && <b className="advanced-connector">→</b>}
+    </span>
+  );
+}
+
 function VisualToken({ type, token }: { type: string; token: unknown }) {
   if (token === null || token === undefined) return <span className="visual-question-mark">?</span>;
-  const value = token as any[];
+  if (["AdvancedMatrix", "AdvancedOptions", "AdvancedSequence", "AdvancedOddOptions"].includes(type)) {
+    return <AdvancedTile spec={token as AdvancedTileSpec} />;
+  }
+  const value = token as unknown[];
 
   if (["IconMatrix", "IconOptions"].includes(type)) {
     return <ShapeIcon kind={String(value[0])} filled={Boolean(value[1])} />;
@@ -204,7 +233,7 @@ function staticMatrix(type: string): unknown[][] {
 
 function VisualPrompt({ spec }: { spec: VisualSpec }) {
   const type = spec.type;
-  const sequenceTypes = ["CornerSequence", "GrowingPolygonSequence", "PolyDotSequence", "ArrowDotSequence", "ArrowOnlySequence", "DotPositionSequence", "CheckerRowSequence"];
+  const sequenceTypes = ["CornerSequence", "GrowingPolygonSequence", "PolyDotSequence", "ArrowDotSequence", "ArrowOnlySequence", "DotPositionSequence", "CheckerRowSequence", "AdvancedSequence"];
   if (sequenceTypes.includes(type)) {
     const items = (spec.items ?? []) as unknown[];
     return (

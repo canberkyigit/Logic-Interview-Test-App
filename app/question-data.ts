@@ -1,4 +1,5 @@
 import generatedSets from "./generated-sets.json";
+import { advancedVisualQuestions } from "./advanced-visual-data";
 import { set1 } from "./set1-data";
 
 export type VisualSpec = {
@@ -491,12 +492,20 @@ const set2: Question[] = [
 
 export type SetNumber = 1 | 2 | 3 | 4 | 5;
 
+function withAdvancedVisuals(setNumber: SetNumber, questions: Question[]): Question[] {
+  const replacements = new Map(
+    advancedVisualQuestions[setNumber].map((question) => [question.id, question]),
+  );
+
+  return questions.map((question) => replacements.get(question.id) ?? question);
+}
+
 export const questionSets: Record<SetNumber, Question[]> = {
-  1: set1,
-  2: set2,
-  3: generatedSets["3"] as Question[],
-  4: generatedSets["4"] as Question[],
-  5: generatedSets["5"] as Question[],
+  1: withAdvancedVisuals(1, set1),
+  2: withAdvancedVisuals(2, set2),
+  3: withAdvancedVisuals(3, generatedSets["3"] as Question[]),
+  4: withAdvancedVisuals(4, generatedSets["4"] as Question[]),
+  5: withAdvancedVisuals(5, generatedSets["5"] as Question[]),
 };
 
 export const setMeta: Record<SetNumber, { level: string; note: string; accent: string }> = {
