@@ -57,7 +57,7 @@
       "id": 4,
       "kind": "visual",
       "category": "Şekil matrisi",
-      "intro": "Şekil türleri satır ve sütunlarda döngüsel ilerlemekte, dolu/boş durumu dama tahtası gibi değişmektedir.",
+      "intro": null,
       "prompt": "Hangisi gelmelidir?",
       "visual": {
         "type": "IconMatrix",
@@ -282,7 +282,7 @@
       "id": 12,
       "kind": "visual-odd",
       "category": "Uyumsuz şekil",
-      "intro": "Dört seçenekte nokta, okun gösterdiği yönün saat yönündeki 90 derecelik tarafındadır.",
+      "intro": null,
       "prompt": "Hangisi diğerlerinden farklıdır?",
       "visualOptions": {
         "type": "ArrowDotRelationOptions",
@@ -453,7 +453,7 @@
       "id": 20,
       "kind": "visual",
       "category": "Şekil matrisi",
-      "intro": "Çokgenlerin kenar sayıları satır ve sütunlarda birer artmakta, dolu/boş durumu dönüşümlü ilerlemektedir.",
+      "intro": null,
       "prompt": "Hangisi gelmelidir?",
       "visual": {
         "type": "PolygonMatrix"
@@ -602,7 +602,7 @@
       "id": 27,
       "kind": "visual",
       "category": "Görsel örüntü",
-      "intro": "Köşedeki nokta saat yönünde ilerlemekte; merkezdeki şekil üçgen ve kare olarak dönüşümlü değişmektedir.",
+      "intro": null,
       "prompt": "Hangisi gelmelidir?",
       "visual": {
         "type": "CornerSequence",
@@ -786,7 +786,7 @@
       "id": 4,
       "kind": "visual",
       "category": "Şekil matrisi",
-      "intro": "Şekil türü ve şekil sayısı satırlarla sütunlarda döngüsel olarak ilerlemektedir.",
+      "intro": null,
       "prompt": "Hangisi gelmelidir?",
       "visual": {
         "type": "ShapeCountMatrix"
@@ -975,7 +975,7 @@
       "id": 12,
       "kind": "visual-odd",
       "category": "Uyumsuz şekil",
-      "intro": "Dört seçenekte iç çizgi sayısı, çokgenin kenar sayısından üç eksiktir.",
+      "intro": null,
       "prompt": "Hangisi diğerlerinden farklıdır?",
       "visualOptions": {
         "type": "PolygonChordOptions",
@@ -1141,7 +1141,7 @@
       "id": 20,
       "kind": "visual",
       "category": "Şekil matrisi",
-      "intro": "Ok yönü ve yanındaki nokta sayısı satırlarla sütunlarda aynı döngüyü izlemektedir.",
+      "intro": null,
       "prompt": "Hangisi gelmelidir?",
       "visual": {
         "type": "ArrowCountMatrix"
@@ -1295,7 +1295,7 @@
       "id": 27,
       "kind": "visual",
       "category": "Görsel örüntü",
-      "intro": "Çokgenlerin kenar sayısı birer artarken dolu/boş durumu dönüşümlü değişmektedir.",
+      "intro": null,
       "prompt": "Hangisi gelmelidir?",
       "visual": {
         "type": "GrowingPolygonSequence",
@@ -1469,8 +1469,8 @@
     {
       "id": 4,
       "kind": "visual",
-      "category": "Şekil matrisi - birleşim",
-      "intro": "Her satırda üçüncü hücre, ilk iki hücredeki çizgilerin birleşiminden oluşmaktadır.",
+      "category": "Şekil matrisi",
+      "intro": null,
       "prompt": "Hangisi gelmelidir?",
       "visual": {
         "type": "LineUnionMatrix",
@@ -1695,7 +1695,7 @@
       "id": 12,
       "kind": "visual-odd",
       "category": "Uyumsuz şekil",
-      "intro": "Dört seçenekte dış çokgenin kenar sayısı, iç çokgenin kenar sayısından iki fazladır.",
+      "intro": null,
       "prompt": "Hangisi diğerlerinden farklıdır?",
       "visualOptions": {
         "type": "NestedPolygonOptions",
@@ -1862,7 +1862,7 @@
       "id": 20,
       "kind": "visual",
       "category": "Şekil matrisi",
-      "intro": "Çokgen türü ve dış noktanın konumu satırlarla sütunlarda aynı döngüyü izlemektedir.",
+      "intro": null,
       "prompt": "Hangisi gelmelidir?",
       "visual": {
         "type": "PolyDotMatrix"
@@ -2016,7 +2016,7 @@
       "id": 27,
       "kind": "visual",
       "category": "Görsel örüntü",
-      "intro": "Çokgenlerin kenar sayısı artarken dış nokta saat yönünde ilerlemekte ve doluluk dönüşümlü değişmektedir.",
+      "intro": null,
       "prompt": "Hangisi gelmelidir?",
       "visual": {
         "type": "PolyDotSequence",

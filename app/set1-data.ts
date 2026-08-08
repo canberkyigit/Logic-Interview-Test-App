@@ -92,7 +92,7 @@ export const set1: Question[] = [
     actions: ["Su tasarrufu konusunda bilgilendirme yapılmalıdır.", "Gereksiz tüketimi azaltmaya yönelik önlemler değerlendirilmelidir."], prompt: "Hangisi mantıklı bir eylemdir?", options: ["Yalnız I", "Yalnız II", "I ve II", "Ne I ne II"], answer: 2,
   },
   {
-    id: 26, kind: "visual", category: "Şekil mantığı", intro: "Ok her adımda saat yönünde 90 derece dönmektedir.", prompt: "Hangisi gelmelidir?", options: ["A", "B", "C", "D"], answer: 0,
+    id: 26, kind: "visual", category: "Şekil mantığı", prompt: "Hangisi gelmelidir?", options: ["A", "B", "C", "D"], answer: 0,
     visual: { type: "ArrowOnlySequence", items: [["up"], ["right"], ["down"], ["left"], null] }, visualOptions: { type: "ArrowOnlyOptions", items: [["up"], ["right"], ["down"], ["left"]] },
   },
   {
@@ -100,7 +100,7 @@ export const set1: Question[] = [
     visualOptions: { type: "IconOptions", items: [["triangle", false], ["square", false], ["diamond", false], ["circle", false], ["triangle-down", false]] },
   },
   {
-    id: 28, kind: "visual", category: "Şekil mantığı", intro: "Dolu nokta her adımda bir konum sağa ilerlemektedir.", prompt: "Hangisi gelmelidir?", options: ["A", "B", "C", "D", "E"], answer: 0,
+    id: 28, kind: "visual", category: "Şekil mantığı", prompt: "Hangisi gelmelidir?", options: ["A", "B", "C", "D", "E"], answer: 0,
     visual: { type: "DotPositionSequence", items: [[true, false, false], [false, true, false], [false, false, true], null] }, visualOptions: { type: "DotPositionOptions", items: [[true, false, false], [false, true, false], [false, false, true], [true, true, false], [false, true, true]] },
   },
   {
@@ -108,7 +108,7 @@ export const set1: Question[] = [
     visualOptions: { type: "ArrowPairOptions", items: [["up", "right"], ["right", "down"], ["down", "left"], ["left", "up"], ["up", "down"]] },
   },
   {
-    id: 30, kind: "visual", category: "Şekil örüntüsü", intro: "Dolu ve boş kareler satırlarda dama tahtası düzeninde değişmektedir.", prompt: "Hangisi gelmelidir?", options: ["A", "B", "C", "D", "E"], answer: 1,
+    id: 30, kind: "visual", category: "Şekil örüntüsü", prompt: "Hangisi gelmelidir?", options: ["A", "B", "C", "D", "E"], answer: 1,
     visual: { type: "CheckerRowSequence", items: [[true, false, true, false], [false, true, false, true], [true, false, true, false], null] }, visualOptions: { type: "CheckerRowOptions", items: [[true, false, true, false], [false, true, false, true], [true, true, false, false], [false, false, true, true], [true, true, true, true]] },
   },
 ];

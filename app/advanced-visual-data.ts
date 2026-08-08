@@ -45,8 +45,7 @@ const oddOptions = (items: Tile[]) => ({ type: "AdvancedOddOptions", items });
 
 const set1: Question[] = [
   {
-    id: 26, kind: "visual", category: "Şekil matrisi — üçlü dağıtım",
-    intro: "Şekil türü, doluluk ve dış noktanın konumu satır ve sütunlarda ayrı kurallarla ilerlemektedir.",
+    id: 26, kind: "visual", category: "Şekil matrisi",
     prompt: "Eksik hücreyi tamamlayan seçenek hangisidir?", options: ["A", "B", "C", "D", "E"], answer: 3,
     visual: matrix([
       [single("triangle", false, "t"), single("square", true, "r"), single("circle", false, "b")],
@@ -57,8 +56,7 @@ const set1: Question[] = [
     explanation: "Şekiller üçgen-kare-daire olarak kayar; doluluk dama düzenindedir; nokta üst-sağ-alt döngüsünü izler. Eksik hücre boş kare ve sağ noktadır.",
   },
   {
-    id: 27, kind: "visual-odd", category: "Uyumsuz şekil — iç/dış ilişki",
-    intro: "Dört seçenekte içteki çokgenin kenar sayısı dıştakinden tam bir eksiktir.",
+    id: 27, kind: "visual-odd", category: "Uyumsuz şekil",
     prompt: "Kuralı bozan seçenek hangisidir?", options: ["A", "B", "C", "D", "E"], answer: 3,
     visualOptions: oddOptions([
       nested("square", false, "triangle", true), nested("pentagon", false, "square", true), nested("hexagon", false, "pentagon", true), nested("hexagon", false, "square", true), nested("octagon", false, "heptagon", true),
@@ -66,8 +64,7 @@ const set1: Question[] = [
     explanation: "A, B, C ve E'de iç şekil dış şekilden bir kenar eksiktir. D'de fark iki kenardır.",
   },
   {
-    id: 28, kind: "visual", category: "Şekil matrisi — parça birleşimi",
-    intro: "Her satırda üçüncü hücre, ilk iki hücredeki çizgilerin tamamının üst üste bindirilmesiyle oluşur.",
+    id: 28, kind: "visual", category: "Şekil matrisi",
     prompt: "Eksik hücre hangisidir?", options: ["A", "B", "C", "D", "E"], answer: 0,
     visual: matrix([
       [lineTile([90]), lineTile([0]), lineTile([90, 0])],
@@ -78,16 +75,14 @@ const set1: Question[] = [
     explanation: "Son satırda dikey ve sağ çapraz çizgi; yatay ve sol çapraz çizgiyle birleşir. Sonuç dört çizginin tamamıdır.",
   },
   {
-    id: 29, kind: "visual", category: "Görsel örüntü — eşzamanlı dönüşüm",
-    intro: "Merkez şekil üçgen-kare biçiminde değişir; aynı şekil yeniden geldiğinde 180 derece döner; dış nokta köşelerde saat yönünde hareket eder.",
+    id: 29, kind: "visual", category: "Görsel örüntü",
     prompt: "Sıradaki şekil hangisidir?", options: ["A", "B", "C", "D", "E"], answer: 2,
     visual: sequence([single("triangle", false, "tl", 0), single("square", true, "tr", 45), single("triangle", false, "br", 180), single("square", true, "bl", 225), null]),
     visualOptions: options([single("triangle", true, "tl", 0), single("square", false, "tl", 0), single("triangle", false, "tl", 0), single("triangle", false, "tr", 0), single("triangle", false, "tl", 90)]),
     explanation: "Beşinci adımda şekil yeniden boş üçgene, dönüş 360 dereceyle başlangıç yönüne ve nokta sol üste döner.",
   },
   {
-    id: 30, kind: "visual", category: "Şekil matrisi — yön ve konum",
-    intro: "Çizgi çifti sütunlarda 45 derece döner; nokta konumu satırlarda bir köşe kayar.",
+    id: 30, kind: "visual", category: "Şekil matrisi",
     prompt: "Eksik hücre hangisidir?", options: ["A", "B", "C", "D", "E"], answer: 1,
     visual: matrix([
       [lineTile([0, 45], ["tl"]), lineTile([45, 90], ["tr"]), lineTile([90, 135], ["br"])],
@@ -101,8 +96,7 @@ const set1: Question[] = [
 
 const set2: Question[] = [
   {
-    id: 4, kind: "visual", category: "Şekil matrisi — çift permütasyon",
-    intro: "İç ve dış şekiller birbirinden bağımsız üçlü döngüler izler; doluluk her hücrede tersine döner.",
+    id: 4, kind: "visual", category: "Şekil matrisi",
     prompt: "Eksik hücre hangisidir?", options: ["A", "B", "C", "D", "E"], answer: 4,
     visual: matrix([
       [nested("triangle", false, "circle", true), nested("square", true, "triangle", false), nested("pentagon", false, "square", true)],
@@ -113,8 +107,7 @@ const set2: Question[] = [
     explanation: "Dış şekil üçgen-kare-beşgen; iç şekil daire-üçgen-kare düzeninde dağılır. Son hücre boş dış kare ve dolu iç dairedir.",
   },
   {
-    id: 12, kind: "visual-odd", category: "Uyumsuz şekil — yön ilişkisi",
-    intro: "Dört seçenekte dış nokta, üçgenin baktığı yönün saat yönündeki 90 derecelik tarafındadır.",
+    id: 12, kind: "visual-odd", category: "Uyumsuz şekil",
     prompt: "Kuralı bozan seçenek hangisidir?", options: ["A", "B", "C", "D", "E"], answer: 4,
     visualOptions: oddOptions([
       tile([shape("circle", false, 50, 50, 64), shape("triangle", true, 50, 50, 25, 0)], [], [dot("r")]),
@@ -126,8 +119,7 @@ const set2: Question[] = [
     explanation: "A-D seçeneklerinde nokta okun saat yönündeki yanındadır. E'de nokta ters taraftadır.",
   },
   {
-    id: 20, kind: "visual", category: "Şekil matrisi — XOR",
-    intro: "Her satırda üçüncü hücre, ilk iki hücreden yalnızca birinde bulunan çizgileri korur; ortak çizgiler silinir.",
+    id: 20, kind: "visual", category: "Şekil matrisi",
     prompt: "Eksik hücre hangisidir?", options: ["A", "B", "C", "D", "E"], answer: 2,
     visual: matrix([
       [lineTile([0, 90]), lineTile([90, 45]), lineTile([0, 45])],
@@ -138,8 +130,7 @@ const set2: Question[] = [
     explanation: "Son satırda yatay ve sağ çapraz çizgiler iki hücrede de bulunduğu için silinir; dikey ve sol çapraz çizgiler kalır.",
   },
   {
-    id: 27, kind: "visual", category: "Görsel örüntü — dört kural",
-    intro: "Dış çokgen büyür, doluluk değişir, iç çizgi 45 derece döner ve nokta köşelerde saat yönünde ilerler.",
+    id: 27, kind: "visual", category: "Görsel örüntü",
     prompt: "Sıradaki şekil hangisidir?", options: ["A", "B", "C", "D", "E"], answer: 3,
     visual: sequence([polygonLine("triangle", false, 0, "tl"), polygonLine("square", true, 45, "tr"), polygonLine("pentagon", false, 90, "br"), polygonLine("hexagon", true, 135, "bl"), null]),
     visualOptions: options([polygonLine("hexagon", false, 0, "tl"), polygonLine("heptagon", true, 0, "tl"), polygonLine("heptagon", false, 90, "tl"), polygonLine("heptagon", false, 0, "tl"), polygonLine("heptagon", false, 0, "tr")]),
@@ -149,8 +140,7 @@ const set2: Question[] = [
 
 const set3: Question[] = [
   {
-    id: 4, kind: "visual", category: "Şekil matrisi — üç özellik",
-    intro: "Şekil türü sütunlarda dağılır; satır numarası nokta sayısını, sütun ise noktaların bulunduğu kenarı belirler.",
+    id: 4, kind: "visual", category: "Şekil matrisi",
     prompt: "Eksik hücre hangisidir?", options: ["A", "B", "C", "D", "E"], answer: 1,
     visual: matrix([
       [shapeDots("triangle", false, ["l"]), shapeDots("square", true, ["t"]), shapeDots("pentagon", false, ["r"])],
@@ -161,8 +151,7 @@ const set3: Question[] = [
     explanation: "Üçüncü satır üç nokta, üçüncü sütun sağ kenar ister. Şekil dizisi beşgen-üçgen-kare ve doluluk boş-dolu-boştur; sonuç sağında üç nokta bulunan boş karedir.",
   },
   {
-    id: 12, kind: "visual-odd", category: "Uyumsuz şekil — işaret edilen konum",
-    intro: "Dört seçenekte üçgen doğrudan dış noktanın bulunduğu yönü gösterir.",
+    id: 12, kind: "visual-odd", category: "Uyumsuz şekil",
     prompt: "Kuralı bozan seçenek hangisidir?", options: ["A", "B", "C", "D", "E"], answer: 4,
     visualOptions: oddOptions([
       tile([shape("square", false, 50, 50, 65), shape("triangle", true, 50, 50, 24, 0)], [], [dot("t")]),
@@ -174,8 +163,7 @@ const set3: Question[] = [
     explanation: "A-D seçeneklerinde üçgen noktaya bakar. E'de üçgen yukarı bakarken nokta aşağıdadır.",
   },
   {
-    id: 20, kind: "visual", category: "Şekil matrisi — nicelik toplama",
-    intro: "Her satırda üçüncü hücredeki şekil sayısı ilk iki hücrenin toplamıdır; sonuç sağ hücrenin doluluğunu devralır.",
+    id: 20, kind: "visual", category: "Şekil matrisi",
     prompt: "Eksik hücre hangisidir?", options: ["A", "B", "C", "D", "E"], answer: 1,
     visual: matrix([
       [countTile("circle", 1, false), countTile("circle", 2, true), countTile("circle", 3, true)],
@@ -186,8 +174,7 @@ const set3: Question[] = [
     explanation: "Son satırda 1 + 1 = 2 kare gerekir. Sağdaki girdi dolu olduğundan sonuç da iki dolu karedir.",
   },
   {
-    id: 27, kind: "visual", category: "Görsel örüntü — kayan çizgi penceresi",
-    intro: "İki çizgilik pencere yönler arasında kayar; nokta saat yönünde ilerler ve doluluğu her adımda değişir.",
+    id: 27, kind: "visual", category: "Görsel örüntü",
     prompt: "Sıradaki şekil hangisidir?", options: ["A", "B", "C", "D", "E"], answer: 0,
     visual: sequence([lineTile([0, 90], ["tl"]), lineTile([90, 45], [], ["tr"]), lineTile([45, -45], ["br"]), lineTile([-45, 0], [], ["bl"]), null]),
     visualOptions: options([lineTile([0, 90], ["tl"]), lineTile([0, 45], ["tl"]), lineTile([0, 90], [], ["tl"]), lineTile([90, 45], ["tl"]), lineTile([0, 90], ["tr"])]),
@@ -197,8 +184,7 @@ const set3: Question[] = [
 
 const set4: Question[] = [
   {
-    id: 4, kind: "visual", category: "Şekil matrisi — şekil XOR",
-    intro: "Her satırda üçüncü hücre, ilk iki hücrede yalnızca bir kez görünen şekilleri korur; aynı şekil ve konumdaki tekrarlar silinir.",
+    id: 4, kind: "visual", category: "Şekil matrisi",
     prompt: "Eksik hücre hangisidir?", options: ["A", "B", "C", "D", "E"], answer: 2,
     visual: matrix([
       [tile([shape("circle", false, 25, 25, 25), shape("square", true, 75, 75, 25)]), tile([shape("circle", false, 25, 25, 25), shape("triangle", true, 75, 25, 25)]), tile([shape("triangle", true, 75, 25, 25), shape("square", true, 75, 75, 25)])],
@@ -211,8 +197,7 @@ const set4: Question[] = [
     explanation: "Son satırda daire ve kare iki kez göründüğü için silinir. Yalnız üçgen ile beşgen kalır.",
   },
   {
-    id: 12, kind: "visual-odd", category: "Uyumsuz şekil — rotasyon/ayna",
-    intro: "Dört seçenek aynı üç parçalı düzenin 90 derecelik döndürülmüş hâlleridir; biri ayna görüntüsüdür.",
+    id: 12, kind: "visual-odd", category: "Uyumsuz şekil",
     prompt: "Ayna görüntüsü olan seçenek hangisidir?", options: ["A", "B", "C", "D", "E"], answer: 4,
     visualOptions: oddOptions([
       tile([shape("triangle", true, 50, 50, 25, 0), shape("square", false, 20, 20, 22)], [], [dot("br")]),
@@ -224,8 +209,7 @@ const set4: Question[] = [
     explanation: "A-D seçeneklerinde kare ve nokta karşı köşelerde kalırken tüm düzen birlikte döner. E aynı dönüşün ayna karşılığıdır.",
   },
   {
-    id: 20, kind: "visual", category: "Şekil matrisi — ortak parçalar (AND)",
-    intro: "Her satırda üçüncü hücre, ilk iki hücrede ortak bulunan çizgileri gösterir.",
+    id: 20, kind: "visual", category: "Şekil matrisi",
     prompt: "Eksik hücre hangisidir?", options: ["A", "B", "C", "D", "E"], answer: 3,
     visual: matrix([
       [lineTile([0, 90, 45]), lineTile([90, 45, -45]), lineTile([90, 45])],
@@ -236,8 +220,7 @@ const set4: Question[] = [
     explanation: "Son satırın iki girdisinde ortak olan çizgiler sağ çapraz ve dikey çizgilerdir.",
   },
   {
-    id: 27, kind: "visual", category: "Görsel örüntü — karşıt hareket",
-    intro: "Merkez şekil üçlü döngü izler; dolu ve boş noktalar köşelerde birbirine zıt yönlerde hareket eder; doluluk değişir.",
+    id: 27, kind: "visual", category: "Görsel örüntü",
     prompt: "Sıradaki şekil hangisidir?", options: ["A", "B", "C", "D", "E"], answer: 1,
     visual: sequence([
       tile([shape("triangle", false, 50, 50, 40)], [], [dot("tl"), dot("br", false)]),
@@ -258,8 +241,7 @@ const set4: Question[] = [
 
 const set5: Question[] = [
   {
-    id: 4, kind: "visual", category: "İleri matris — XOR + rotasyon",
-    intro: "Önce ilk iki hücrenin ortak çizgileri silinir; kalan çizgi kümesi 90 derece saat yönünde döndürülerek üçüncü hücre elde edilir.",
+    id: 4, kind: "visual", category: "Şekil matrisi",
     prompt: "Eksik hücre hangisidir?", options: ["A", "B", "C", "D", "E"], answer: 4,
     visual: matrix([
       [lineTile([0, 45]), lineTile([45, 90]), lineTile([0, 90])],
@@ -270,8 +252,7 @@ const set5: Question[] = [
     explanation: "Son satırda ortak sol çapraz silinir; dikey, yatay ve sağ çapraz kalır. Bu küme 90 derece dönünce yatay, dikey ve sol çapraz oluşur.",
   },
   {
-    id: 12, kind: "visual-odd", category: "İleri dönüşüm — iki panelli analoji",
-    intro: "Dört seçenekte sağdaki üçgen soldakinin 90 derece saat yönüne döndürülmüş ve doluluğu ters çevrilmiş hâlidir.",
+    id: 12, kind: "visual-odd", category: "Görsel dönüşüm",
     prompt: "Dönüşüm kuralını bozan seçenek hangisidir?", options: ["A", "B", "C", "D", "E"], answer: 4,
     visualOptions: oddOptions([
       tile([shape("triangle", false, 24, 50, 28, 0), shape("triangle", true, 76, 50, 28, 90)], [], [], true),
@@ -283,8 +264,7 @@ const set5: Question[] = [
     explanation: "A-D seçeneklerinde hem 90 derece dönüş hem doluluk değişimi vardır. E yalnızca döner; doluluk değişmez.",
   },
   {
-    id: 20, kind: "visual", category: "İleri matris — dört bağımsız kural",
-    intro: "Dış şekil, iç çizgi açısı, nokta sayısı ve doluluk ayrı Latin dağılımları ve dama düzeni izler.",
+    id: 20, kind: "visual", category: "Şekil matrisi",
     prompt: "Eksik hücre hangisidir?", options: ["A", "B", "C", "D", "E"], answer: 2,
     visual: matrix([
       [tile([shape("triangle", false, 50, 50, 66)], [line(0, 50, 50, 34)], [dot("t")]), tile([shape("square", true, 50, 50, 66)], [line(45, 50, 50, 34)], [dot("l"), dot("r")]), tile([shape("pentagon", false, 50, 50, 66)], [line(90, 50, 50, 34)], [dot("t"), dot("bl"), dot("br")])],
@@ -301,8 +281,7 @@ const set5: Question[] = [
     explanation: "Son hücre dışta boş kare, içeride yatay çizgi ve iki nokta gerektirir. Dört özellik de hem satır hem sütun kuralını aynı anda tamamlar.",
   },
   {
-    id: 27, kind: "visual", category: "İleri örüntü — bağımsız döngüler",
-    intro: "Çokgenin kenar sayısı artar; doluluk ikili gruplar hâlinde değişir; iki çizgilik pencere yönler arasında kayar; nokta çevrede döner.",
+    id: 27, kind: "visual", category: "Görsel örüntü",
     prompt: "Sıradaki şekil hangisidir?", options: ["A", "B", "C", "D", "E"], answer: 3,
     visual: sequence([
       tile([shape("triangle", false, 50, 50, 66)], [line(-45), line(0)], [dot("t")]),
