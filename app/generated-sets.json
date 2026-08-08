@@ -4,7 +4,6 @@
       "id": 1,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Sayılar aynı çarpma ve çıkarma kuralıyla ilerlemektedir.",
       "sequence": "6 - 10 - 18 - 34 - 67 - 130 - 258",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -142,7 +141,6 @@
       "id": 5,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Ardışık farklar sabit miktarda büyümektedir.",
       "sequence": "3 - 8 - 17 - 30 - 48 - 68 - 93",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -200,7 +198,6 @@
       "id": 8,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Tek ve çift sıradaki sayılar kendi içlerinde iki ayrı çarpma örüntüsü oluşturur.",
       "sequence": "2 - 7 - 6 - 14 - 18 - 28 - 55 - 56",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -234,7 +231,6 @@
       "id": 10,
       "kind": "number-matrix",
       "category": "Sayı matrisi",
-      "intro": "Her satır aynı matematiksel kuralla oluşturulmuştur.",
       "matrix": [
         [
           4,
@@ -331,7 +327,6 @@
       "id": 13,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Sayılar ardışık tam sayıların küpleriyle ilişkili bir kurala göre oluşturulmuştur.",
       "sequence": "0 - 7 - 26 - 63 - 125 - 215 - 342",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -385,7 +380,6 @@
       "id": 16,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Ardışık farklar asal sayılardan oluşmaktadır.",
       "sequence": "10 - 12 - 15 - 20 - 27 - 39 - 51",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -444,7 +438,6 @@
       "id": 19,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Üçüncü sayıdan itibaren önceki iki sayı birlikte kullanılmaktadır.",
       "sequence": "2 - 4 - 7 - 12 - 20 - 34 - 54",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -521,7 +514,6 @@
       "id": 22,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Her adımdaki artış ardışık tam sayıların kareleridir.",
       "sequence": "1 - 5 - 14 - 30 - 55 - 91 - 141",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -577,7 +569,6 @@
       "id": 25,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Toplama ve çarpma işlemleri artan tam sayılarla dönüşümlü uygulanmaktadır.",
       "sequence": "5 - 8 - 16 - 20 - 61 - 65 - 260 - 266",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -682,7 +673,6 @@
       "id": 28,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Toplama ve çarpma işlemlerinde kullanılan sayı her iki adımda bir artmaktadır.",
       "sequence": "12 - 15 - 30 - 34 - 103 - 107 - 428",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -743,7 +733,6 @@
       "id": 1,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Ardışık farklar her adımda aynı miktarda artmaktadır.",
       "sequence": "4 - 9 - 17 - 28 - 43 - 59 - 79",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -845,7 +834,6 @@
       "id": 5,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Her sayı bir önceki sayının aynı işlemle dönüştürülmesiyle oluşmaktadır.",
       "sequence": "2 - 5 - 11 - 23 - 47 - 94 - 191",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -903,7 +891,6 @@
       "id": 8,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Tek sıradaki sayılar üçle, çift sıradaki sayılar ikiyle çarpılarak ilerlemektedir.",
       "sequence": "4 - 5 - 12 - 10 - 36 - 20 - 109 - 40",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -937,7 +924,6 @@
       "id": 10,
       "kind": "number-matrix",
       "category": "Sayı matrisi",
-      "intro": "Her satır aynı matematiksel kuralla oluşturulmuştur.",
       "matrix": [
         [
           5,
@@ -1029,7 +1015,6 @@
       "id": 13,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Her terim ardışık iki tam sayının çarpımıdır.",
       "sequence": "2 - 6 - 12 - 20 - 31 - 42 - 56",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -1083,7 +1068,6 @@
       "id": 16,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Ardışık farklar ikişer artan çift sayılardır.",
       "sequence": "1 - 3 - 7 - 13 - 21 - 31 - 44",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -1142,7 +1126,6 @@
       "id": 19,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Üçle çarpıp bir ekleme ve ikiyle çarpıp bir çıkarma işlemleri dönüşümlü ilerlemektedir.",
       "sequence": "2 - 7 - 13 - 40 - 79 - 237 - 475",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -1224,7 +1207,6 @@
       "id": 22,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Her terim bir öncekinin iki katının bir fazlasıdır.",
       "sequence": "3 - 7 - 15 - 31 - 63 - 126 - 255",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -1280,7 +1262,6 @@
       "id": 25,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Kare sayı ekleme ve artan tam sayıyla çarpma işlemleri dönüşümlü uygulanmaktadır.",
       "sequence": "10 - 11 - 22 - 26 - 79 - 87 - 348",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -1376,7 +1357,6 @@
       "id": 28,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Sayılar ikili gruplar halinde ilerlemekte; ikinci sayı birincinin dört katı olmaktadır.",
       "sequence": "1 - 4 - 3 - 12 - 5 - 20 - 8 - 28",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -1437,7 +1417,6 @@
       "id": 1,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Ardışık farklar artan tek sayılardan oluşmaktadır.",
       "sequence": "5 - 10 - 17 - 26 - 37 - 51 - 65",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -1573,7 +1552,6 @@
       "id": 5,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Farklar, asal sayılar ve tam kareler olmak üzere iki ayrı örüntüyü dönüşümlü izlemektedir.",
       "sequence": "20 - 22 - 26 - 31 - 40 - 51 - 66",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -1633,7 +1611,6 @@
       "id": 8,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Tek sıradaki sayılar üçle, çift sıradaki sayılar ikiyle çarpılarak ilerlemektedir.",
       "sequence": "2 - 3 - 6 - 6 - 18 - 12 - 54 - 25",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -1667,7 +1644,6 @@
       "id": 10,
       "kind": "number-matrix",
       "category": "Sayı matrisi",
-      "intro": "Her satır aynı matematiksel kuralla oluşturulmuştur.",
       "matrix": [
         [
           6,
@@ -1759,7 +1735,6 @@
       "id": 13,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Terimler ardışık pozitif tam sayıların faktöriyelleridir.",
       "sequence": "2 - 6 - 24 - 120 - 721 - 5040",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -1813,7 +1788,6 @@
       "id": 16,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Her terim ikiyle çarpıldıktan sonra sırayla 1, 2, 3, 4, 5 ve 6 eklenmektedir.",
       "sequence": "3 - 7 - 16 - 35 - 74 - 152 - 312",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -1873,7 +1847,6 @@
       "id": 19,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Ardışık farklar her adımda üç artmaktadır.",
       "sequence": "7 - 12 - 20 - 31 - 45 - 63 - 82",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -1955,7 +1928,6 @@
       "id": 22,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Sayılar ardışık üçgensel sayıların kareleridir.",
       "sequence": "1 - 9 - 36 - 100 - 225 - 441 - 785",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -2011,7 +1983,6 @@
       "id": 25,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Toplama ve çarpma işlemleri artan tam sayılarla dönüşümlü uygulanmaktadır.",
       "sequence": "7 - 10 - 20 - 24 - 72 - 77 - 309 - 314",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
@@ -2116,7 +2087,6 @@
       "id": 28,
       "kind": "sequence",
       "category": "Sayısal örüntü - düzeni bozan sayı",
-      "intro": "Tek ve çift sıradaki sayılar kendi içlerinde iki farklı örüntü oluşturmaktadır.",
       "sequence": "5 - 4 - 10 - 9 - 20 - 19 - 41 - 39",
       "prompt": "Hangisi düzeni bozmaktadır?",
       "options": [
