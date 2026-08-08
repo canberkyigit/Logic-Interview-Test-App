@@ -267,9 +267,14 @@ function NumberMatrix({ rows }: { rows: Array<[number, number, string]> }) {
 }
 
 function QuestionBody({ question }: { question: Question }) {
+  const showsIntro = question.kind !== "sequence"
+    && question.kind !== "number-matrix"
+    && question.kind !== "visual"
+    && question.kind !== "visual-odd";
+
   return (
     <>
-      {question.intro && <p className="question-intro">{question.intro}</p>}
+      {showsIntro && question.intro && <p className="question-intro">{question.intro}</p>}
       {question.context && <div className="context-box"><span>Açıklama</span><p>{question.context}</p></div>}
       {question.statements && <ul className="statement-list">{question.statements.map((statement, index) => <li key={index}>{statement}</li>)}</ul>}
       {question.fact && <div className="fact-box">{question.fact}</div>}
